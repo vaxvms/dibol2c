@@ -1,0 +1,76 @@
+The C code hasn't been really designed to be as readable as the dibol
+source. Due to the way dibol deals with variable (see dibol manuals for
+samples)
+
+for example the following program :
+RECORD
+	A,D4,5
+	B,D4,15
+	C,D4
+
+BEGIN
+	C=A+B
+END
+
+would have been translated in C as
+
+int main(int argc,char** argv)
+{
+	int a=5;
+	int b=15;
+	int c;
+
+	c=a+b;
+}
+
+Unfortunatly, i have to still close to dibol internal representation
+(again, see the dibol manual (*)). And the program is translated as :
+
+int
+main (int argc, char **argv)
+{
+	Varhandle *vh = newVarhandle (1000);
+	Stack *stack;
+	variable *var1;
+	variable *var2;
+	variable *vA = newvar (vh, tDECIMAL, 4, 1, 0, 0, "5");        /* 1 */
+	variable *vB = newvar (vh, tDECIMAL, 4, 1, 0, 0, "15");
+	variable *vC = newvar (vh, tDECIMAL, 4, 1, 0, 0, NULL);
+	initDibol (argv[0]);                                          /* 2 */
+	push (&stack, vC);                                            /* 3 */
+	push (&stack, vA);
+	push (&stack, vB);
+	var2 = pop (&stack);
+	var1 = pop (&stack);
+	push (&stack, add (var1, var2));
+	assign (pop (&stack), pop (&stack));
+	freeVarhandle (vh);
+}
+
+Eh, much bigger ! But it's quite easy to understand what i'm doing.
+ 
+Step 1 : Variables declarations
+Step 2 : initialisation of the runtime environnement
+Step 3 : Compute. I'm using a stack to compute (just like a HP48
+Calculator)
+  
+I'm plan to improve C output by using C++ (see other/c++). As a result,
+the stack usage is made by the compiler and
+   
+c=a+b
+    
+just translate as
+	 
+c=a+b
+	  
+Much better !
+	   
+(*) in case you don't have the manual, i'm thinking of this one (dpANS
+DIBOL Language Reference Manual 3-15) :
+	    
+RECORD
+	NAME, 4A3,'LAS','FIR','MID','ADD'
+	CODE, 4D4,0617,1739,5173,2480
+
+and the field NAME(5) contains 061
+

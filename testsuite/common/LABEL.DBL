@@ -1,0 +1,25 @@
+; Test program for LABEL
+;
+
+COMMON
+A,	D5
+B,	A5
+
+RECORD C
+	D,	A5,'ABCDE'
+
+COMMON E
+	F,	A6,'123456'
+
+COMMON G,X
+	H,	A3
+	I,	A3
+
+PROC
+	OPEN(1,SI,"TT:")
+	GOTO READ
+	XCALL DSPLY(2,24,1,0,0,2,ERRMSG,0)
+READ,
+	GOTO (READ),C
+	CLOSE 1
+END

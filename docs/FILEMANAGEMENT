@@ -1,0 +1,23 @@
+This file describe the management of the file for libdibol.
+
+There is three type of file in DIBOL :
+	- sequential. They are implemented as regular file.
+	- relative. They are implemented through mysql.
+	- indexed. They are also implemented through mysql.
+
+Well, there is nothing to say about sequential file...
+
+relative and indexed file are implemented with mysql. Each file is
+a table into the database DIBOL.
+
+	A table for a relative file has the following structure :
+		id	int	primary key 
+		data	blob
+
+	A table for an indexed file has the following structure :
+		id	int	auto_increment primary key
+		key1	char(n1)
+		data1	char(n2)
+		key2	char(n3)
+		key3	char(n4)
+		...

@@ -1,0 +1,14 @@
+If you want to help the project, take a look at this TODO list. Of course,
+you can do something that is not in the list.
+
+Theses symbols get you information about the priority i've given to the task :
+(*) ASAP
+(+) Must be done
+(-) If i've got time
+
+* Fix memleak
++ More documentation
++ Seek and destroy GNUism such as getline and asprintf
++ abstract SQL layer to be able to use others SQL engines
+- Compile on VMS :-)
+- Using C++, with operators definition, i think we can get clearer code.
