@@ -50,7 +50,6 @@ FILE* open_include_file(char *filename) {
 
 	for(iter=include_dirs;iter;iter=iter->next) {
 		include_filename=g_strconcat((char*)iter->data,"/",unixfilename,NULL);
-fprintf(stderr,"%s\n",include_filename);
 		if ( (ifile=fopen(include_filename,"r"))!=NULL )
 			return ifile;
 		free(include_filename);
