@@ -310,7 +310,7 @@ stmt:
 	;
 
 labelA:
-	id comma {
+	ident comma {
 		$$= g_slist_append(NULL,g_strconcat("l",$1,": ;",NULL));
 		free($1);
 		};
