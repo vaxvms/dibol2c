@@ -25,37 +25,6 @@
 #include <glib.h>
 #include "dppparser.tab.h"
 
-char* quote(char* str)
-{
-	char* quotestr;
-	char* oldquotestr;
-	char* oldstr=str;
-	int quotelength=1;
-	while (*str!='\0') {
-		if (*str=='"') quotelength+=2;
-		else quotelength++;
-		str++;
-	}
-	quotestr=(char*)malloc(quotelength*sizeof(char));
-	oldquotestr=quotestr;
-	str=oldstr;
-	do {
-		if (*str=='"') {
-			*quotestr='\\';
-			quotestr++;
-		}
-		if (*str=='\n') {
-			str+=2;
-		}
-		*quotestr=*str;
-		str++;
-		quotestr++;
-	} while (*str!='\0');
-	quotestr--;
-	*quotestr='\0';
-	return oldquotestr;
-}
-
 void trim(char *str) {
 	char *begin=str;
 	while (isspace(*str)) str++;
