@@ -27,33 +27,63 @@
 #include "d2c.h"
 #include "dibolparser.h"
 
-char* quote(char* str)
+#define SINGLEQUOTE '\''
+#define DOUBLEQUOTE '"'
+
+/* This function convert a dibol string to a C string :
+ *  - double quote are escaped,
+ *  - two following quotes are replaced by a single quote if there are of 
+ *    the same type as surrounding quote,
+ *  - backslash is escaped
+ */
+char* quote(char* str, char quote)
 {
 	char* quotestr;
 	char* oldquotestr;
 	char* oldstr=str;
 	int quotelength=1;
 	int i=0;
+	/* Compute length of the resulting string */
 	while (*str!='\0') {
-		if (*str=='"') quotelength+=2;
+		if (*str=='"' && quote==SINGLEQUOTE) quotelength+=2;
+		else if (*str=='"' && *(str+1)=='"' && quote==DOUBLEQUOTE) {
+			quotelength+=2;
+			str++;
+		}
+		else if (*str=='\\') quotelength+=2;
 		else quotelength++;
 		str++;
 	}
 	quotestr=(char*)malloc(quotelength*sizeof(char));
+
+	/* Build the resulting string */
 	oldquotestr=quotestr;
 	str=oldstr;
 	do {
-		if (*str=='"') {
+		if (*str==DOUBLEQUOTE && quote==SINGLEQUOTE) {
 			*quotestr='\\';
 			quotestr++;
 		}
-		if (*str=='\n') {
+		else if (*str=='"' && *(str+1)=='"' && quote==DOUBLEQUOTE) {
+			*quotestr='\\';
+			*quotestr++;
+			str++;
+		}
+		else if (*str=='\'' && *(str+1)=='\'' && quote==SINGLEQUOTE) {
+			str++;
+		}
+		else if (*str=='\\') {
+			*quotestr='\\';
+			quotestr++;
+		}
+		else if (*str=='\n') {
 			str+=2;
 		}
 		*quotestr=*str;
 		str++;
 		quotestr++;
 	} while (*str!='\0');
+	*quotestr='\0';
 	return oldquotestr;
 }
 
@@ -233,8 +263,10 @@ comma		","
 <*>\'[^\']*\'	{
 		int c = input();
 		if (c != '\'') {
-			yylval.str=quote(yytext+1);
-			yylval.str[yyleng-2] = '\0';
+			//yylval.str[yyleng-1] = '\0';
+			yytext[yyleng-1]='\0';
+			yylval.str=quote(yytext+1,SINGLEQUOTE);
+			//yylval.str[yyleng-2] = '\0';
 			unput(c);
 			return qstring;
 		} else {
@@ -246,8 +278,9 @@ comma		","
 <*>\"[^"]*\"	{
 		int c = input();
 		if (c!='"') {
-			yylval.str=quote(yytext+1);
-			yylval.str[yyleng-2] = '\0';
+			yytext[yyleng-1]='\0';
+			yylval.str=quote(yytext+1,DOUBLEQUOTE);
+			//yylval.str[yyleng-2] = '\0';
 			unput(c);
 			return qstring;
 		} else {
