@@ -92,16 +92,16 @@ stmts:
 
 stmt:
 	ifdef id {
-		if (g_slist_find_custom(fields,$2,(GCompareFunc)strcmp)==0 && output==1)
+		if (g_slist_find_custom(fields,$2,(GCompareFunc)strcmp)!=NULL && output==1)
 			output=1;
 		else
 			output=0;
 	}
 	| ifndef id {
-		if (g_slist_find_custom(fields,$2,(GCompareFunc)strcmp)==0)
-			output=0;
-		else
+		if (g_slist_find_custom(fields,$2,(GCompareFunc)strcmp)==NULL)
 			output=1;
+		else
+			output=0;
 	}
 	| endc {
 	}
@@ -129,7 +129,7 @@ stmt:
 		if (output) {
 			printf("%s",yylval.str);
 			if (in_record) {
-				g_slist_prepend(fields,$1);
+				fields=g_slist_prepend(fields,$1);
 			}
 		}
 	}
@@ -140,7 +140,7 @@ stmt:
 	| record id {
 		if (output) {
 			printf("%s",yylval.str);
-			g_slist_prepend(fields,$2);
+			fields=g_slist_prepend(fields,$2);
 		}
 	}
 	| common
