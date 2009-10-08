@@ -9,6 +9,7 @@
 // open mode definition
 #define INPUT	1
 #define OUTPUT	2
+#define APPEND	3
 #define UPDATE	4
 
 // open submode definition
