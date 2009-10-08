@@ -366,94 +366,142 @@ comma		","
 		}
 
 <STMTS>"accept"	{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(accept);
 		}
 
 <STMTS>"begin"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(begin);
 		}
 
 <STMTS>"end"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(end);
 		}
 
-<STMTS>"call"		{
+<STMTS>"call"	{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(call);
 		}
 
 <STMTS>"clear"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(clearA);
 		}
 
 <STMTS>"close"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(close);
 		}
 
 <STMTS>"decr"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(decr);
 		}
 
 <STMTS>"delete"	{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(delete);
 		}
 
 <STMTS>"detach"	{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(detach);
 		}
 
 <STMTS>"display"	{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(display);
 		}
 
 <STMTS>"do"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(doA);
 		}
 
 <STMTS>"until"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(until);
 		}
 
 <STMTS>"exitloop"	{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(exitloop);
 		}
 
 <STMTS>"for"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(forA);
 		}
 
 <STMTS>"from"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(from);
 		}
 
 <STMTS>"thru"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(thru);
 		}
 
 <STMTS>"by"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(by);
 		}
 
 <STMTS>"forms"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(forms);
 		}
 
 <STMTS>"goto"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(gotoA);
 		}
 
 <STMTS>"go to"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(gotoA);
 		}
 
-<STMTS>"if"		{
+<STMTS>"if"	{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(ifA);
 		}
 
-<STMTS>"then"		{
+<STMTS>"then"	{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(then);
 		}
 
-<STMTS>"else"		{
+<STMTS>"else"	{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(elseA);
 		}
 
@@ -466,34 +514,50 @@ comma		","
 		}
 
 <STMTS>"incr"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(incr);
 		}
 
 <STMTS>"locase"	{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(locase);
 		}
 
 <STMTS>"lpque"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(lpque);
 		}
 
 <STMTS>"offerror"	{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(offerror);
 		}
 
 <STMTS>"off error"	{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(offerror);
 		}
 
 <STMTS>"onerror"	{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(onerror);
 		}
 
 <STMTS>"on error"	{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(onerror);
 		}
 
 <STMTS>"open"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(open);
 		}
 
@@ -503,70 +567,104 @@ comma		","
 		}
 
 <STMTS>"read"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(read);
 		}
 
 <STMTS>"reads"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(reads);
 		}
 
 <STMTS>"recv"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(recv);
 		}
 
 <STMTS>"return"	{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(returnA);
 		}
 
 <STMTS>"send"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(send);
 		}
 
 <STMTS>"sleep"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(sleep);
 		}
 
 <STMTS>"stop"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(stop);
 		}
 
 <STMTS>"store"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(store);
 		}
 
 <STMTS>"unlock"	{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(unlock);
 		}
 
 <STMTS>"upcase"	{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(upcase);
 		}
 
 <STMTS>"using"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(using);
 		}
 
 <STMTS>"select"	{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(selectA);
 		}
 
 <STMTS>"endusing"	{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(endusing);
 		}
 
 <STMTS>"while"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(whileA);
 		}
 
 <STMTS>"write"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(write);
 		}
 
 <STMTS>"writes"	{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(writes);
 		}
 
 <STMTS>"xcall"		{
+		yylval.str=g_strdup(yytext);
+		g_strup(yylval.str);
 		return(xcall);
 		}
 
