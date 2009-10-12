@@ -476,7 +476,7 @@ stmtproc:
 	proc iobuf newline stmts {
 		$$ = $4;
 		}
-	| proc iobuf newline stmts end optnewline {
+	| proc iobuf newline stmts end stmtnewlines {
 		$$ = $4;
 		};
 
