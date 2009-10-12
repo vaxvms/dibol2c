@@ -148,7 +148,7 @@ Stack* usingstack=NULL;
 %nonassoc elseA
 %nonassoc then
 
-%start stmts
+%start prog
 
 %type <code> labelA
 %type <code> stmt
@@ -157,7 +157,6 @@ Stack* usingstack=NULL;
 %type <code> stmtcommon
 %type <code> compexpr
 %type <code> expr
-%type <code> subroutinedecl
 %type <code> stmtaffect
 %type <code> parameter
 %type <code> parameters
@@ -203,6 +202,8 @@ Stack* usingstack=NULL;
 //%type <str> common
 %type <fieldsdef> fieldsdefinition
 %type <fielddef> fielddefinition
+%type <fieldsdef> subroutineargs
+%type <fielddef> subroutinearg
 %type <str> fieldtype
 //%type <str> subroutine
 %type <code> openallocopt
@@ -233,9 +234,98 @@ Stack* usingstack=NULL;
 %type <code> mexps
 %type <code> mexp
 %type <str> ident
-
+%type <code> datadivision
+%type <code> datasdivision
 
 %%
+
+prog:
+	stmtnewlines subroutine id newline stmtnewlines stmtproc {
+		char* headername;
+		FILE* headerfile;
+		prototype=g_strconcat("void p",$3," ()",NULL);
+		GSList * code=gencode_function(prototype,vardecl,commondecl,commoninit,$6);
+		/* When we have parsed a procedure, nothing else matter
+		as there is only one proc per file with dibol */
+		while (code!=NULL) {
+			fprintf(csrc,"%s\n",(char*)code->data);
+			//free(code->data);
+			code=g_slist_next(code);
+		}
+		g_slist_free(code);
+	}
+	| stmtnewlines subroutine id newline stmtnewlines datasdivision stmtproc {
+		char* headername;
+		FILE* headerfile;
+		prototype=g_strconcat("void p",$3," ()",NULL);
+		GSList * code=gencode_function(prototype,vardecl,commondecl,commoninit,$7);
+		/* When we have parsed a procedure, nothing else matter
+		as there is only one proc per file with dibol */
+		while (code!=NULL) {
+			fprintf(csrc,"%s\n",(char*)code->data);
+			//free(code->data);
+			code=g_slist_next(code);
+		}
+		g_slist_free(code);
+	}
+	| stmtnewlines subroutine id newline stmtnewlines subroutineargs datasdivision stmtproc {
+		char* params=NULL;
+		GSList* tmp;
+		GSList* fieldslist;
+		char* headername;
+		FILE* headerfile;
+		fieldslist=g_slist_reverse($6);
+		tmp=fieldslist;
+		while (tmp != NULL) {
+			if (params==NULL)
+				params=g_strdup("");
+			else
+				params=g_strconcat(params,",",NULL);
+			asprintf(&params,"%s variable * v%s",params,(*(FieldDef*)(tmp->data)).name);
+			addSymbol(&symbols,createParameter((*(FieldDef*)(tmp->data)).name));
+			tmp = g_slist_next(tmp);
+		}
+		g_slist_free(fieldslist);
+		asprintf(&prototype,"void p%s (%s)",$3,params);
+		/* When we have parsed a procedure, nothing else matter
+		as there is only one proc per file with dibol */
+		GSList * code=gencode_function(prototype,vardecl,commondecl,commoninit,$8);
+		while (code!=NULL) {
+			fprintf(csrc,"%s\n",(char*)code->data);
+			//free(code->data);
+			code=g_slist_next(code);
+		}
+		g_slist_free(code);
+		}
+	| stmtnewlines datasdivision stmtproc {
+		/* When we have parsed a procedure, nothing else matter
+		as there is only one proc per file with dibol */
+		GSList * code=gencode_function(prototype,vardecl,commondecl,commoninit,$3);
+		while (code!=NULL) {
+			fprintf(csrc,"%s\n",(char*)code->data);
+			//free(code->data);
+			code=g_slist_next(code);
+		}
+		g_slist_free(code);
+		}
+	
+stmtnewlines:
+	stmtnewline
+	| stmtnewline stmtnewlines
+	| ;
+
+datasdivision:
+	datadivision
+	| datasdivision datadivision
+
+datadivision:
+	stmtrecord {
+		vardecl=g_slist_concat(vardecl,$1);
+	}
+	| stmtcommon {
+		commondecl=g_slist_concat(commondecl,$1);
+		}
+	;
 
 stmts:
 	stmt {
@@ -248,15 +338,6 @@ stmts:
 
 stmt:
 	labelA
-	| stmtrecord {
-		vardecl=g_slist_concat(vardecl,$1);
-		$$ = txt2list("\n");
-		}
-	| stmtcommon {
-		commondecl=g_slist_concat(commondecl,$1);
-		$$ = txt2list("\n");
-		}
-	| subroutinedecl
 	| stmtaffect
 	| stmtaccept
 	| stmtcall
@@ -277,17 +358,6 @@ stmt:
 	| stmtofferror
 	| stmtonerror
 	| stmtopen
-	| stmtproc {
-		/* When we have parsed a procedure, nothing else matter
-		as there is only one proc per file with dibol */
-		GSList* code=$1;
-		while (code!=NULL) {
-			fprintf(csrc,"%s\n",(char*)code->data);
-			//free(code->data);
-			code=g_slist_next(code);
-		}
-		g_slist_free(code);
-		}
 	| stmtread
 	| stmtreads
 	| stmtrecv
@@ -399,46 +469,29 @@ iobuf:
 		$$ = g_strdup(" ");
 		}
 
-stmtfunction:
-	functionA id newline
+/*stmtfunction:
+	functionA id newline*/
 
 stmtproc:
 	proc iobuf newline stmts {
-		$$ = gencode_function(prototype,vardecl,commondecl,commoninit,$4);
+		$$ = $4;
 		}
-	| proc iobuf newline stmts end {
-		$$ = gencode_function(prototype,vardecl,commondecl,commoninit,$4);
+	| proc iobuf newline stmts end optnewline {
+		$$ = $4;
 		};
 
-subroutinedecl:
-	subroutine id newline {
-			char* headername;
-			FILE* headerfile;
-			prototype=g_strconcat("void p",$2," ()",NULL);
-			$$ = NULL;
+subroutineargs:
+	subroutinearg { if ($1!=NULL) $$ = g_slist_prepend(NULL,$1); }
+	/*| newline subroutinearg*/
+	| subroutineargs subroutinearg {
+		if ($2!=NULL) $$ = g_slist_prepend($1,$2);
+	};
 
-		}
-	| subroutine id newline fieldsdefinition {
-			char* params=NULL;
-			GSList* tmp;
-			GSList* fieldslist;
-			char* headername;
-			FILE* headerfile;
-			fieldslist=g_slist_reverse($4);
-			tmp=fieldslist;
-			while (tmp != NULL) {
-				if (params==NULL)
-					params=g_strdup("");
-				else
-					params=g_strconcat(params,",",NULL);
-				asprintf(&params,"%s variable * v%s",params,(*(FieldDef*)(tmp->data)).name);
-				addSymbol(&symbols,createParameter((*(FieldDef*)(tmp->data)).name));
-				tmp = g_slist_next(tmp);
-			}
-			g_slist_free(fieldslist);
-			asprintf(&prototype,"void p%s (%s)",$2,params);
-			$$ = NULL;
-		};
+subroutinearg:
+	ident comma id newline {
+		$$=newFielddef($1,$3,NULL);
+	}
+	| newline { $$ = NULL; }
 
 stmtaffect:
 	expr equal expr newline {
