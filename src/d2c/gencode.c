@@ -151,7 +151,7 @@ gencode_common_init_def (char *commonname, int redef, GSList * fields)
 	  else
 	    asprintf (&data, "\"%s\"", def->data);
 	  nbtmp++;
-	  asprintf (&line, "gtmp%d=newvar(vh,%s,%d,%d,%d,%d,%s);", nbtmp, str,
+	  asprintf (&line, "newvar(vh,%s,%d,%d,%d,%d,%s);", str,
 		    def->size, def->nbelts, redef, def->name == NULL, data);
 	}
       gencode = g_slist_prepend (gencode, line);
