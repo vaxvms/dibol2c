@@ -308,6 +308,15 @@ prog:
 		}
 		g_slist_free(code);
 		}
+	| stmtnewlines stmtproc {
+		GSList * code=gencode_function(prototype,vardecl,commondecl,commoninit,$2);
+		while (code!=NULL) {
+			fprintf(csrc,"%s\n",(char*)code->data);
+			//free(code->data);
+			code=g_slist_next(code);
+		}
+		g_slist_free(code);
+	}
 	
 stmtnewlines:
 	stmtnewline
