@@ -59,7 +59,7 @@ char* changeExt(char* filename,char *ext)
 		i--;
 	if (filename[i] == '.') {
 		int extlen=strlen(ext);
-		newfilename=(char*)malloc((i+extlen+1)*sizeof(char));
+		newfilename=(char*)malloc((i+extlen+2)*sizeof(char));
 		memcpy(newfilename,filename,i+1);
 		memcpy(newfilename+i+1,ext,extlen);
 		newfilename[i+extlen+1]='\0';
