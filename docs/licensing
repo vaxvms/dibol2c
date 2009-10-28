@@ -1,0 +1,22 @@
+> I am concerned that if I use your run time library, we will have
+> licensed code in our product which requires us to publish the complete
+> works as source.
+
+No, licensing of the run-time library isn't a issue.
+There is several license involved in the translator
+ 
+dpp, dc and d2c are distributed under GPL. Basically, it means that you
+can't take sources and make it a proprietary product. But you can use it
+on propriatary sources. It's the same for gcc. You can compile
+proprietary product with it but you can't take gcc and distribute it as
+a closed-source product. The result of d2c (c source) is under your own
+license.
+  
+rtl and ues are distributed under LGPL. You still can't distribute it as
+closed-source product but you can link it with closed-source product.
+It's the license for the linux C library. You can write a closed-source
+product that use services of the C library (netscape, oracle, ....)
+   
+You can have a look at www.opensource.org for more precise explanations
+
+Nicolas

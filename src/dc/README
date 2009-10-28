@@ -1,0 +1,23 @@
+This is dc (dibol compiler)
+
+dc deals with dependencies between dibol sources files. As an input,
+it use a file where each line give a dependencie. For example, this
+file
+
+TOTO.DBL: TITI.DBL TUTU.DBL
+TUTU.DBL: TATA.DBL
+
+means : "To compile TOTO.DBL, you'll have to compile TITI.DBL and
+TUTU.DBL first. But to compile TUTU.DBL, you'll have to compile
+TATA.DBL first"
+
+The compilation of a file is divided into three parts :
+	- Translation from Dibol to C
+	- Indentation of the resulting source code
+	- compilation with gcc
+
+when each file has been compiled, the final binary is
+produce. His name is the name of the first file without
+extension.
+
+Nicolas

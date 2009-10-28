@@ -1,0 +1,38 @@
+This document describe my first attempt to compile d2c under the cygwin environnement.
+As i'm writing this document, it doesn't work yet.
+
+cygwin can be found at http://sources.redhat.com/cygwin/
+
+Firstly, you have to install it. Take care of version of automake and autoconf.
+You'll need to install automake 1.4 and autoconf 2.13. It does not work yet with
+latest version (it's the same under linux). Of course, install gcc, make, binutils
+to get a compiler.
+
+Now, it's time to install required components :
+Download the glib source at http://www.gtk.org . I've download the 1.2.10 version.
+unpack it :
+	tar zxvf glib-1.2.10.tar.gz
+
+configure :
+	cd glib-1.2.10
+	./configure
+
+before running the compilation, edit config.h and remove the 2 lines with
+#define HAVE_STRSIGNAL 1
+
+run compilation :
+	make
+
+and install
+	make install
+
+
+Download mysql at http://www.mysql.org
+Not tested yet. I've just copy include file from linux.
+
+We are now ready to compile d2c
+	cd d2c
+	./configure
+	make
+
+The compilation should fail with an undefined reference to getline 

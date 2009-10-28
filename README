@@ -1,0 +1,36 @@
+	d2c : A free DIBOL to C translator
+	----------------------------------
+
+	* Presentation
+
+	Well, if you don't known what DIBOL is, I think that this software
+will not be very useful to you. Take your bike and go for a ride in the
+countryside, it will be better.
+
+	Still here ? Great, so you known what DIBOL is ! It has been written
+with the DIBOL-83 manual in hands. As a result, it should conform to it but
+don't be surprised if you find bugs.
+
+	It is divided into two parts :
+	* The first one is the dibol to C translator. It converts a dibol
+program to a C one. The raw output of d2c isn't very clean. But if you 
+use GNU indent, you'll get a better output.
+
+	* The second part is the run-time library which contains all the C
+equivalent of DIBOL RTL. You'll have to link the output of the translator
+to this library in order to get a working result.
+
+	* Contributing
+
+	I'm looking for contributors kind enough to write me some regression
+tests both for the libdibol part and the translator part.
+	I'm also interested in bugs reports and patchs.
+
+	* Other
+
+	I'm looking for a VMS-based system in order to replace my slow
+VAXstation 2000 by something faster. So, if you've got a VAX (or even 
+an ALPHA ;-) that you don't use, please send it to me !
+
+
+Nycos <nicolas@dupeux.net>

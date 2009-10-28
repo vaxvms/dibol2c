@@ -1,0 +1,23 @@
+; this test concentrate on string parsing
+record
+	A,A10,"String 1"
+	B,A10,"String '2'"
+	C,A10,"String ""3"""
+	D,A10,'String 4'
+	E,A10,'String "5"'
+	F,A10,'String ''6'''
+	G,A10,'\String \'
+	H,A10,'\'
+
+PROC
+	OPEN(1,SI,"TT:")
+	DISPLAY(1,"String handling testing",13,10)
+	DISPLAY(1,A,13,10)
+	DISPLAY(1,B,13,10)
+	DISPLAY(1,C,13,10)
+	DISPLAY(1,D,13,10)
+	DISPLAY(1,E,13,10)
+	DISPLAY(1,F,13,10)
+	DISPLAY(1,G,13,10)
+	CLOSE 1
+END

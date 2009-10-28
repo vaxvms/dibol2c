@@ -1,0 +1,19 @@
+.include "test2.dbl"
+
+.page
+
+proc
+.IFNDEF VMS
+	display(1,"not a vms system")
+.ifdef A
+	display(1,"if you see this line, there's a bug")
+.endc
+.ENDC
+
+.ifdef a
+	display(1,"a is defined")
+.endc
+
+.ifdef b
+	display(1,"b is defined")
+.endc
