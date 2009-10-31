@@ -256,6 +256,14 @@ comma		","
 		return(closeparenth);
 		}
 
+<STMTS>"["	{
+		return(openbracket);
+		} 
+
+<STMTS>"]"	{
+		return(closebracket);
+		}
+
 <STMTS>"%"		{
 		return(percent);
 		}
