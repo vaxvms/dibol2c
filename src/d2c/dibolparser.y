@@ -60,6 +60,8 @@ Stack* usingstack=NULL;
 %token <str> qstring
 %token <str> openparenth
 %token <str> closeparenth
+%token <str> openbracket
+%token <str> closebracket
 %token <str> percent
 %token <str> newline
 %token <str> subroutine
@@ -641,6 +643,9 @@ expr:
 	| percent id openparenth parameters closeparenth {
 		$$ = txt2list("// Not implemented yet.");
 		}
+	| expr openbracket expr closebracket {
+		$$ = txt2list("// Not implemented yet.");
+	}
 	| NUMBER {
 		char* tmp;
 		asprintf(&tmp,"push(&stack,imm(tDECIMAL,%d,\"%s\"));",strlen($1),$1);
