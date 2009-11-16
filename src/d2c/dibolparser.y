@@ -661,14 +661,13 @@ expr:
 		asprintf(&tmp,"push(&stack,imm(tALPHA,%d,\"%s\"));",strlen($1),$1);
 		$$ = g_slist_append(NULL,tmp);
 		}
-	| id openparenth expr closeparenth {
+	| expr openparenth expr closeparenth {
 		char* tmp=g_strconcat("push(&stack,indexvar(vh,v",$1,",decimal2integer(pop(&stack))));",NULL);
 		$$ = g_slist_concat($3,g_slist_append(NULL,tmp));
 		}
-	| id openparenth expr comma expr closeparenth {
-		char* tmp=g_strconcat("push(&stack,v",$1,");",NULL);
+	| expr openparenth expr comma expr closeparenth {
 		$$ = g_slist_multiconcat(
-			g_slist_append(NULL,tmp),
+			$1,
 			$3,
 			$5,
 			txt2list("push(&stack,substring(pop(&stack),pop(&stack),pop(&stack)));"),
@@ -1196,4 +1195,3 @@ stmtexitloop:
 		}
 
 %%
-
