@@ -1,7 +1,7 @@
 /**************************************************************************
- * date.c from libdibolues
+ * unpak.c from libdibolues
  *
- * (c) 2001 Nicolas DUPEUX                      nicolas@dupeux.net
+ * (c) 2009 Nicolas DUPEUX                      nicolas@dupeux.net
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the Lesser GNU General Public License as
@@ -15,20 +15,9 @@
  **************************************************************************/
 
 #include "dibol.h"
-#include <time.h>
-#include <stdlib.h>
-#include <string.h>
 
-void pDATE(variable* afield)
+void pUNPAK(variable* record, variable* dfield, ...)
 {
-	time_t curtime;
-	char* str=(char*)malloc(10*sizeof(char));
-	int i;
-	curtime = time (NULL);
-	strftime(str,10,"%d-%b-%y",localtime(&curtime));
-	for (i=0;i<10;i++)
-		str[i]=toupper(str[i]);
-	memcpy(getdata(afield),str,getsize(afield));
-	free(str);
+	fprintf(stderr,"UNPAK is a stub. Feel free to contribute code in lib/ues/unpak.c\n");
 }
 
