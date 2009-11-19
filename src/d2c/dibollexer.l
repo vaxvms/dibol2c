@@ -30,10 +30,13 @@
 #define SINGLEQUOTE '\''
 #define DOUBLEQUOTE '"'
 
+const char dec2octal[] = "01234567";
+
 /* This function convert a dibol string to a C string :
  *  - double quote are escaped,
  *  - two following quotes are replaced by a single quote if there are of 
  *    the same type as surrounding quote,
+ *  - non printable characters are replaced by their hexadecimal representation
  *  - backslash is escaped
  */
 char* quote(char* str, char quote)
@@ -51,6 +54,7 @@ char* quote(char* str, char quote)
 			str++;
 		}
 		else if (*str=='\\') quotelength+=2;
+		else if (*str < 32) quotelength+=4;
 		else quotelength++;
 		str++;
 	}
@@ -63,25 +67,53 @@ char* quote(char* str, char quote)
 		if (*str==DOUBLEQUOTE && quote==SINGLEQUOTE) {
 			*quotestr='\\';
 			quotestr++;
+			*quotestr=*str;
+			str++;
+			quotestr++;
 		}
 		else if (*str=='"' && *(str+1)=='"' && quote==DOUBLEQUOTE) {
 			*quotestr='\\';
 			*quotestr++;
 			str++;
+			*quotestr=*str;
+			str++;
+			quotestr++;
 		}
 		else if (*str=='\'' && *(str+1)=='\'' && quote==SINGLEQUOTE) {
 			str++;
+			*quotestr=*str;
+			str++;
+			quotestr++;
 		}
 		else if (*str=='\\') {
 			*quotestr='\\';
 			quotestr++;
+			*quotestr=*str;
+			str++;
+			quotestr++;
+		}
+		else if (*str < 32) {
+			*quotestr='\\';
+			quotestr++;
+			*quotestr='0';
+			quotestr++;
+			*quotestr=dec2octal[(*str) / 8];
+			quotestr++;
+			*quotestr=dec2octal[(*str) % 8];
+			quotestr++;
+			str++;
 		}
 		else if (*str=='\n') {
 			str+=2;
+			*quotestr=*str;
+			str++;
+			quotestr++;
 		}
-		*quotestr=*str;
-		str++;
-		quotestr++;
+		else {
+			*quotestr=*str;
+			str++;
+			quotestr++;
+		}
 	} while (*str!='\0');
 	*quotestr='\0';
 	return oldquotestr;
