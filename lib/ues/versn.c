@@ -14,7 +14,7 @@
  * Lesser GNU General Public License for more details.
  **************************************************************************/
 
-#include "versn.h"
+#include "ues.h"
 
 void pVERSN(variable* version)
 {

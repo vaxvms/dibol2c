@@ -15,6 +15,7 @@
  **************************************************************************/
 
 #include "dibol.h"
+#include "ues.h"
 
 void pINSTR(variable* start, variable* string1, variable* string2, variable* position)
 {

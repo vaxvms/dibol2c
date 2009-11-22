@@ -24,4 +24,4 @@ libdibolues_la_SOURCES = \
 	unpak.c \
 	versn.c \
 	wait.c
-include_HEADERS = ascii.h date.h decml.h delet.h error.h fatal.h flags.h instr.h jbno.h money.h pak.h renam.h rstat.h runjb.h size.h time_ues.h tnmbr.h ttsts.h unpak.h versn.h wait.h
+include_HEADERS = ues.h

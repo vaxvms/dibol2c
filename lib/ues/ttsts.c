@@ -14,7 +14,7 @@
  * Lesser GNU General Public License for more details.
  **************************************************************************/
 
-#include "ttsts.h"
+#include "ues.h"
 #include "filefonc.h"
 
 void pTTSTS(variable* nfield,variable* ch)
