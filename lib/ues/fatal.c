@@ -15,6 +15,7 @@
  **************************************************************************/
 
 #include "dibol.h"
+#include "ues.h"
 
 void pFATAL(variable* action, variable* filespec)
 {
