@@ -22,6 +22,7 @@ int lineno = 1;
 extern char* yytext;	/* Text of the lastest token */
 extern FILE* yyin;	/* input file */
 extern int yydebug;
+extern GHashTable* defines;
 GSList* include_dirs=NULL;
 
 int yyerror(const char *msg) {
@@ -59,6 +60,8 @@ int main(int argc, char **argv)
 
   /* Add current dir to the top of the include dir list */
   include_dirs=g_slist_prepend(include_dirs,strdup("."));
+
+  defines=g_hash_table_new(g_str_hash,g_str_equal);
 
   yyin = src;
   return yyparse();

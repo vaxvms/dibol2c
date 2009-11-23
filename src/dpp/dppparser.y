@@ -27,6 +27,7 @@
 #include "dpplexer.h"
 
 GSList *fields=NULL;
+GHashTable *defines=NULL;
 extern GSList *include_dirs;
 extern int output;
 extern int in_record;
@@ -76,10 +77,14 @@ FILE* open_include_file(char *filename) {
 %token proc
 %token record
 %token common
+%token define
+%token comma
+%token NUMBER
 
 %start stmts
 
 %type <str> qstring
+%type <str> NUMBER
 %type <str> id
 %type <str> fid
 
@@ -92,13 +97,17 @@ stmts:
 
 stmt:
 	ifdef id {
-		if (g_slist_find_custom(fields,$2,(GCompareFunc)strcmp)!=NULL && output==1)
+		char* key;
+		char* value;
+		if (g_hash_table_lookup_extended(defines,$2,&key,&value) && output==1)
 			output=1;
 		else
 			output=0;
 	}
 	| ifndef id {
-		if (g_slist_find_custom(fields,$2,(GCompareFunc)strcmp)==NULL)
+		char* key;
+		char* value;
+		if (!g_hash_table_lookup_extended(defines,$2,&key,&value) && output==1)
 			output=1;
 		else
 			output=0;
@@ -123,27 +132,46 @@ stmt:
 		yypush_buffer_state(yybs);
 	}
 	| id {
-		if (output) printf("%s",yylval.str);
+		char* value;
+		if (output) {
+			value=g_hash_table_lookup(defines,$1);
+			printf("%s",value==NULL ? yylval.str : value);
+		}
 	}
 	| fid {
 		if (output) {
 			printf("%s",yylval.str);
 			if (in_record) {
-				fields=g_slist_prepend(fields,$1);
+				g_hash_table_insert(defines,$1,NULL);
 			}
 		}
 	}
 	| qstring {
 		if (output) printf("%s",yylval.str);
 	}
+	| NUMBER {
+		if (output) printf("%s",yylval.str);
+	}
 	| record
 	| record id {
 		if (output) {
 			printf("%s",yylval.str);
-			fields=g_slist_prepend(fields,$2);
+			g_hash_table_insert(defines,$2,NULL);
 		}
 	}
+	| define id {
+		g_hash_table_insert(defines,$2,NULL);
+	}
+	| define id comma qstring {
+		g_hash_table_insert(defines,$2,$4);
+	}
+	| define id comma NUMBER {
+		g_hash_table_insert(defines,$2,$4);
+	}
 	| common
+	| comma {
+		if (output) printf(",");
+	}
 	| proc
 	| subroutine
 	| title

@@ -23,7 +23,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
-#include "dppparser.tab.h"
+#include "dppparser.h"
 
 void trim(char *str) {
 	char *begin=str;
@@ -68,6 +68,10 @@ comma		","
 
 ".INCLUDE"	{
 		return(include);
+		}
+
+".DEFINE"	{
+		return(define);
 		}
 
 ".LIST"		{
@@ -138,11 +142,20 @@ comma		","
 		return(common);
 		}
 
+{comma}		{
+		return(comma);
+		}
+
 {id}		{
 		yylval.str=g_strdup(yytext);
 		/* Put the identifier in uppercase */
 		g_strup(yylval.str);
 		return(id);
+		}
+
+{integer}	{
+		yylval.str=g_strdup(yytext);
+		return(NUMBER);
 		}
 
 ^[ \t]*{id}	{
