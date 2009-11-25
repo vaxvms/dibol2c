@@ -55,6 +55,7 @@ FILE* open_include_file(char *filename) {
 			return ifile;
 		free(include_filename);
 	}
+	return NULL;
 }
 
 %}
