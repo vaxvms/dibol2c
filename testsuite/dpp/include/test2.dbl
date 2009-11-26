@@ -1,5 +1,0 @@
-; this is a record
-.INCLUDE "test3.dbl"
-record a
-	b	,a20
-	c	,d1
