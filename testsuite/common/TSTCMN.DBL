@@ -1,7 +1,0 @@
-COMMON E
-        F,      A6,'123456'
-
-SUBROUTINE TSTCMN
-PROC
-	F='654321'
-END
