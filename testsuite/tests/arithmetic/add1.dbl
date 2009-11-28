@@ -1,0 +1,9 @@
+; description: test a addition between 2 decimals fields
+record
+	A,D1,4
+	B,D2,9
+	C,D3
+
+proc
+	C=A+B
+end

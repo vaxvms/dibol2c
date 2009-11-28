@@ -1,0 +1,8 @@
+;
+; description: The must-have hello world
+;
+PROC
+	OPEN(1,SI,'TT:')
+	DISPLAY(1,"Hello dibol world",13,10)
+	CLOSE 1
+END
