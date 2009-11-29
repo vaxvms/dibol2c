@@ -1,0 +1,11 @@
+;
+; description: test array
+RECORD
+	WEEKDAY,7A3,"Mon","Tue","Wed","Thu","Fri","Sat","Sun"
+
+PROC
+	OPEN(1,SI,"TT:")
+	; Display abbreviation of the Thrid day of the week
+	DISPLAY(1,WEEKDAY(3))
+	CLOSE 1
+END
