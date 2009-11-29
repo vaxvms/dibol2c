@@ -671,8 +671,11 @@ expr:
 		$$ = g_slist_append(NULL,tmp);
 		}
 	| expr openparenth expr closeparenth {
-		char* tmp=g_strconcat("push(&stack,indexvar(vh,v",$1,",decimal2integer(pop(&stack))));",NULL);
-		$$ = g_slist_concat($3,g_slist_append(NULL,tmp));
+		$$ = g_slist_multiconcat(
+			$3,
+			txt2list("push(&stack,indexvar(vh,pop(&stack),decimal2integer(pop(&stack))));"),
+			NULL
+			);
 		}
 	| expr openparenth expr comma expr closeparenth {
 		$$ = g_slist_multiconcat(
