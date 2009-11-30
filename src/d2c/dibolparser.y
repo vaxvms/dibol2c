@@ -829,7 +829,7 @@ stmtforms:
 	;
 
 ident:
-	id | ifA | then | elseA | call | display | clearA | read | open | delete | begin | end | selectA | send; 
+	id | ifA | then | elseA | call | display | clearA | read | recv | open | delete | begin | end | selectA | send; 
 
 ids:
 	ident {
