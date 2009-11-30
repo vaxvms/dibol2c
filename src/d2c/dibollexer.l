@@ -345,6 +345,14 @@ comma		","
 		return(common);
 		}
 
+"group"		{
+		return(group);
+		}
+
+"endgroup"	{
+		return(endgroup);
+		}
+
 <STMTS>"+"		{
 		return(plus);
 		}

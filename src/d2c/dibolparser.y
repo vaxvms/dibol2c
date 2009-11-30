@@ -57,6 +57,8 @@ Stack* usingstack=NULL;
 %token <str> comma
 %token <str> record
 %token <str> common
+%token <str> group
+%token <str> endgroup
 %token <str> qstring
 %token <str> openparenth
 %token <str> closeparenth
@@ -336,6 +338,8 @@ datadivision:
 	| stmtcommon {
 		commondecl=g_slist_concat(commondecl,$1);
 		}
+	| stmtexternal
+	| stmtnewlines
 	;
 
 stmts:
@@ -384,7 +388,6 @@ stmt:
 	| stmtwrite
 	| stmtwrites
 	| stmtxcall
-	| stmtexternal
 	| stmtexitloop
 	| stmtnewline
 	| begin_end
@@ -445,7 +448,9 @@ fieldsdefinition:
 fieldtype:
 	id { $$=$1; }
 	| NUMBER id { $$=$2; }
-	| NUMBER id NUMBER { $$=$2; };
+	| NUMBER id NUMBER { $$=$2; }
+	| openbracket NUMBER closebracket id { $$=NULL; }
+	| openbracket NUMBER closebracket id NUMBER { $$=NULL; }
 
 fieldvalues:
 	fieldvalue
@@ -470,6 +475,12 @@ fielddefinition:
 		}
 	| comma fieldtype newline {
 		$$=newFielddef(NULL,$2,NULL);
+		}
+	| group id newline fieldsdefinition endgroup {
+		$$ = NULL;
+		}
+	| group id comma fieldtype newline fieldsdefinition endgroup {
+		$$ = NULL;
 		}
 	| newline { $$ = NULL; }
 	;
