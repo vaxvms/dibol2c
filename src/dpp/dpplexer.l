@@ -90,6 +90,10 @@ comma		","
 		return(title);
 		}
 
+"\n&"	{
+		/* Join splitted lines together. It's easier for the parser */
+		}
+
 {comments}	{
 		if (output) printf("%s",yytext);
 		}
