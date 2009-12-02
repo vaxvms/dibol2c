@@ -43,7 +43,7 @@ void dbl_read(variable * ch, variable * record, variable * field)
 	    error(64);
 	row = mysql_fetch_row(result);
 	lengths = mysql_fetch_lengths(result);
-	memcpy(getdata(record), row[0], lengths[0]); /* FIXME we don't check for record size */
+	memcpy(getdata(record), row[0], lengths[0]); /** \todo fixme: we don't check for record size */
 	mysql_free_result(result);
 	canal->lastid=id;
 	return;
@@ -111,7 +111,7 @@ void dbl_read(variable * ch, variable * record, variable * field)
 	    (getdata(field), row[keyfield],
 	     getsize(field) <
 	     lengths[keyfield] ? getsize(field) : lengths[keyfield]) != 0) {
-		/* FIXME According to the dibol manual, we have to return the record with the next higher key */
+		/** \todo fixme: According to the dibol manual, we have to return the record with the next higher key */
 	    mysql_free_result(result);
 	    error(53);
 	}

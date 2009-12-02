@@ -18,7 +18,7 @@
 #include "operators.h"
 #include <stdlib.h>
 
-/*
+/**
  * Create a new Varhandle
  */
 Varhandle *newVarhandle(size_t size)
@@ -31,7 +31,7 @@ Varhandle *newVarhandle(size_t size)
     return vh;
 }
 
-/*
+/**
  * Free a Varhandle
  */
 void freeVarhandle(Varhandle *vh)
@@ -40,7 +40,7 @@ void freeVarhandle(Varhandle *vh)
     free(vh);
 }
 
-/*
+/**
  * Declare a new variable in a Varhandle
  */
 variable* newvar(Varhandle * vh, int type, size_t size, size_t nbelts, int redef,
@@ -79,7 +79,7 @@ void freevar(variable* var)
 	free(var);
 }
 
-/*
+/**
  * return a pointeur to a portion of a variable
  */
 variable *substring(variable * var, variable * start, variable * end)
@@ -91,7 +91,7 @@ variable *substring(variable * var, variable * start, variable * end)
     return var2;
 }
 
-/*
+/**
  * Create a variable with an immediate value
  */
 variable *imm(int type, size_t size, char *data)
@@ -106,7 +106,7 @@ variable *imm(int type, size_t size, char *data)
     return (var);
 }
 
-/*
+/**
  * return the type of a variable
  */
 int gettype(variable * var)
@@ -114,7 +114,7 @@ int gettype(variable * var)
     return (var->type);
 }
 
-/*
+/**
  * return the declared size of a variable
  */
 int getsize(variable * var)
@@ -122,7 +122,7 @@ int getsize(variable * var)
     return (var->size);
 }
 
-/*
+/**
  * return a pointer to the data of a variable
  */
 char *getdata(variable * var)
@@ -130,7 +130,7 @@ char *getdata(variable * var)
     return (var->data);
 }
 
-/*
+/**
  * return true if the variable value is true
  */
 int isTrue(variable * var)
