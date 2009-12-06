@@ -1,0 +1,12 @@
+;
+; description: test group definition
+;
+RECORD
+	A,A5
+	GROUP B,A30
+		C,A20
+	ENDGROUP
+
+PROC
+
+END

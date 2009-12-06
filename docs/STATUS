@@ -1,0 +1,46 @@
+This file give the status of the functions implementation.
+
+X	completely implemented
+/	halfly implemented
+o	not implemented
+*	does not apply
+
+function name		parser		RTL	comments
+------------------------------------------------------------------------------
+record declaration	X		X
+common declaration	X		o	Need to be done ASAP
+accept			X		X
+begin-end		X		*
+call			X		X
+clear			X		X
+close			X		X
+delete			X		X
+detach			X		*
+display			X		X
+do-until		X		*
+for			X		*
+forms			X		X
+goto			X		*
+goto (computed)		X		*
+if			X		*
+incr			X		X
+locase			X		X
+lpque			/		/
+offerror		X		X
+onerror			X		X
+open			X		X	dibol 83 only
+read			X		X
+reads			X		X
+recv			X		o
+return			X		X
+send			X		/
+sleep			X		X
+stop			X		X
+store			X		X
+unlock			X		o
+upcase			X		X
+using			X		*
+while			X		*
+write			X		X
+writes			X		X
+xcall			X		X

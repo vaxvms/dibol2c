@@ -1,0 +1,16 @@
+In DIBOL, you can have a label, a procedure, a function and a label with
+the same name. DIBOL is also not case sensitive. That not the case in C
+so a little bit of name mangling is necessary. Here are the rules :
+
+Every symbol is converted to upper-case and a letter is added as a
+prefix to tell the type of the symbol :
+
+	letter	|	type of symbol
+	------------------------------
+	v	|	variable
+	l	|	label
+	p	|	procedure
+	f	|	function
+	dbl_	|	dibol rtl function
+
+I think (and hope !) that this convention avoid namespace conflicts.

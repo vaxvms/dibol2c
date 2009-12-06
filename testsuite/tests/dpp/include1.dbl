@@ -1,0 +1,4 @@
+;
+; description: test an include with a non existing file
+;
+.INCLUDE 'NOTFND.INC'

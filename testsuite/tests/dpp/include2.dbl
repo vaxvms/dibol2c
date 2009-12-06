@@ -1,0 +1,4 @@
+; description: test include file
+PROC
+.include "include2.inc"
+END

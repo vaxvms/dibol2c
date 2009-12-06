@@ -1,0 +1,21 @@
+; description: test IFDEF/IFNDEF compiler statement
+;
+RECORD
+	A,A1
+
+PROC
+	OPEN(1,SI,"TT:")
+.IFDEF A
+	DISPLAY(1,"A is defined",13,10)
+.ENDC
+.IFNDEF A
+	DISPLAY(1,"A is not defined (it should be)",13,10)
+.ENDC
+.IFDEF B
+	DISPLAY(1,"B is defined (it should not)",13,10)
+.ENDC
+.IFNDEF B
+	DISPLAY(1,"B is not defined",13,10)
+.ENDC
+	CLOSE 1
+END

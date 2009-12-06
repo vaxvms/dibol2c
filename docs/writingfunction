@@ -1,0 +1,56 @@
+How to write function in C for d2c
+----------------------------------
+
+You are using unimplemented dibol function or you want to call C code
+within you dibol program ? This document explain how to write your new
+function.
+
+1. Function prototype
+
+In dibol, function doesn't return value (FIXME, wrong in dibol85) so
+the type of your function should be void.
+
+each argument is of variable* type. If the argument is not defined in the
+dibol program, the corresponding argument is set to NULL for the C function.
+
+example:
+	- in dibol
+	SUBROUTINE FOO
+		ARG1	,A
+		ARG2	,D
+	- in C
+	void pFOO(variable* arg1, variable* arg2)
+
+2. Conversions functions
+
+The d2c runtime library provide severals functions to deal with type
+conversion and variable manipulation.
+
+	int gettype(variable* var);
+Return the type of a variable.
+tRECORD for a record
+tALPHA for a alpha field
+tDECIMAL for a decimal field
+if you treat tRECORD as tALPHA, please note that tRECORD < tALPHA < tDECIMAL
+
+	int getsize(variable* var);
+Return the size of a variable.
+
+	char* getdata(variable* var);
+Return a pointer to the data.
+
+	int isTrue(variable* var);
+Return 1 is the variable is true.
+0 otherwise.
+
+	int64 decimal2integer(variable* var);
+Convert a variable to int64. It there is a problem during the translation,
+it call the error handler.
+
+	void integer2decimal(variable* var, long long value);
+Put value into a variable. It respect dibol convention such as coding for
+negative number and truncating.
+
+	char* alpha2char(variable* var);
+Convert an alpha field to a more convienant format. It suppress the ending
+space caracters.
