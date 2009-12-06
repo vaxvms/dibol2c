@@ -22,11 +22,12 @@ set style data lines
 set xdata time
 set ylabel "Nb de tests"
 set grid
+set term png
 set output "graph.png"
-plot 'graph.csv' using 1:2 title "Nb total de tests"
-replot 'graph.csv' using 1:3 title "preprocesseur"
-replot 'graph.csv' using 1:4 title "traducteur"
-replot 'graph.csv' using 1:5 title "indent"
-replot 'graph.csv' using 1:6 title "gcc"
-pause 100
+plot "graph.csv" \
+	using 1:2 title "Nb total de tests", \
+	'' using 1:3 title "preprocesseur", \
+	'' using 1:4 title "traducteur", \
+	'' using 1:5 title "indent", \
+	'' using 1:6 title "gcc"
 EOGP
