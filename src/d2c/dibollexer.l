@@ -716,6 +716,10 @@ comma		","
 		return(xcall);
 		}
 
+<STMTS>"."	{
+		return(dot);
+		}
+
 <*>{id}		{
 		yylval.str=g_strdup(yytext);
 		/* Put the identifier in uppercase */
