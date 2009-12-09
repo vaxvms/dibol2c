@@ -23,5 +23,6 @@ libdibolues_la_SOURCES = \
 	ttsts.c \
 	unpak.c \
 	versn.c \
-	wait.c
+	wait.c \
+	wkday.c
 include_HEADERS = ues.h

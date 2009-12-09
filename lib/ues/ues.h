@@ -25,5 +25,6 @@ void pTTSTS(variable* nfield,variable* ch);
 void pUNPAK(variable* afield);
 void pVERSN(variable* version);
 void pWAIT(variable* seconds, variable* parameters, variable* event);
+void pWKDAY(variable* afield);
 
 #endif
