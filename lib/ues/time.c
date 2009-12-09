@@ -1,7 +1,7 @@
 /**************************************************************************
  * time.c from libdibolues
  *
- * (c) 2009 Nicolas DUPEUX                      nicolas@dupeux.net
+ * (c) 2009 Anu				info@aksuda.com
  *
  * This library is free software; you can redistribute it and/or modify
  * it under the terms of the Lesser GNU General Public License as
@@ -15,9 +15,16 @@
  **************************************************************************/
 
 #include "dibol.h"
+#include <time.h>
 
-void pTIME(variable* dfield)
+void pTIME(variable* afield)
 {
-	fprintf(stderr,"TIME is a stub. Feel free to contribute code in lib/ues/time.c\n");
+	time_t curtime;
+	char* str=(char*)malloc(9*sizeof(char));
+	int i;
+	curtime=time(NULL);
+	strftime(str,9,"%H:%M:%S",localtime(&curtime));
+	memcpy(getdata(afield),str,getsize(afield));
+	free(str);
 }
 
