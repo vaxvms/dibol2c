@@ -54,6 +54,7 @@ Stack* usingstack=NULL;
 %token <str> NUMBER
 %token <str> equal
 %token <str> id
+%token <str> dot
 %token <str> comma
 %token <str> record
 %token <str> common
@@ -670,6 +671,9 @@ expr:
 		char* tmp;
 		asprintf(&tmp,"push(&stack,imm(tDECIMAL,%d,\"%s\"));",strlen($1),$1);
 		$$ = g_slist_append(NULL,tmp);
+		}
+	| expr dot expr {
+		/* \todo Implement code output */
 		}
 	| ident {
 	//| id {
