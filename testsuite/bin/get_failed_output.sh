@@ -36,5 +36,5 @@ RESULTFILE=$(ls -1tr results/result.*.csv | tail -n 1)
 cat $RESULTFILE | awk -F";" "{if (\$$FIELD > 0) print \$1}" | \
 	sed "s#\.dbl#/step\.$STEP\.output#g" | \
 	sed "s#^#results/#g" |
-	xargs $VIM -p
+	xargs $VIM -R -n -p
 
