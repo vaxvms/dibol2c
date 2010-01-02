@@ -174,16 +174,19 @@ comma		","
 		}
 
 <OPENSUBMODE>"S"	{
+		BEGIN STMTS;
 		specialstate=0;
 		return(sequential);
 		}
 
 <OPENSUBMODE>"I"	{
+		BEGIN STMTS;
 		specialstate=0;
 		return(indexed);
 		}
 
 <OPENSUBMODE>"P"	{
+		BEGIN STMTS;
 		specialstate=0;
 		return(print);
 		}
