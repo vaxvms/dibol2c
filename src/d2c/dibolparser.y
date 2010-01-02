@@ -735,7 +735,7 @@ stmtaccept:
 		};
 
 begin_end:
-	begin stmts end newline {
+	begin stmts end stmtnewlines {
 		$$=g_slist_multiconcat(
 			txt2list("{"),
 			$2,
