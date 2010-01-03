@@ -70,4 +70,4 @@ AC_FUNC_MALLOC
 AC_FUNC_REALLOC
 AC_CHECK_FUNCS(mkdir select socket strdup strstr strtol atexit memmove memset realpath strcasecmp strchr)
 
-AC_OUTPUT(Makefile lib/Makefile lib/common/Makefile lib/rtl/Makefile lib/ues/Makefile src/Makefile src/dpp/Makefile src/dc/Makefile src/d2c/Makefile dibol-config, chmod +x dibol-config)
+AC_OUTPUT(Makefile lib/Makefile lib/common/Makefile lib/rtl/Makefile lib/ues/Makefile src/Makefile src/dpp/Makefile src/dc/Makefile src/d2c/Makefile testsuite/Makefile dibol-config, chmod +x dibol-config)
