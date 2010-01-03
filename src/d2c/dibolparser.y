@@ -97,6 +97,7 @@ Stack* usingstack=NULL;
 %token <str> incr
 %token <str> locase
 %token <str> lpque
+%token <str> nextloop
 %token <str> offerror
 %token <str> onerror
 %token <str> open
@@ -182,6 +183,7 @@ Stack* usingstack=NULL;
 %type <code> stmtincr
 %type <code> stmtlocase
 %type <code> stmtlpque
+%type <code> stmtnextloop
 %type <code> stmtofferror
 %type <code> stmtonerror
 %type <code> stmtopen
@@ -371,6 +373,7 @@ stmt:
 	| stmtincr
 	| stmtlocase
 	| stmtlpque
+	| stmtnextloop
 	| stmtofferror
 	| stmtonerror
 	| stmtopen
@@ -923,6 +926,11 @@ stmtlpque:
 	lpque {specialstate=LPQUEOPTIONSTATE;} openparenth parameter lpqueoptions closeparenth newline {
 		$$ = g_slist_multiconcat($4,$5,txt2list("dbl_lpque(pop(&stack),pop(&stack),pop(&stack),pop(&stack),pop(&stack));"),NULL);
 		};
+
+stmtnextloop:
+	nextloop newline {
+		$$ = txt2list("// nextloop : Not implemented yet.");
+	};
 
 stmtofferror:
 	offerror newline {

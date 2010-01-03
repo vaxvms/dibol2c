@@ -1,0 +1,14 @@
+; d2c testsuite
+;
+; description: test nextloop (dibol 85)
+; rc: 0;0;0;0
+
+PROC
+	OPEN(1,SI,'TT:')
+	FOR I FROM 1 THRU 3 
+	BEGIN
+		IF I.EQ.2 THEN NEXTLOOP
+		DISPLAY(1,"I=",I,13,10)
+	END
+	CLOSE 1
+END

@@ -582,6 +582,10 @@ comma		","
 		return(lpque);
 		}
 
+<STMTS>"nextloop"	{
+		return(nextloop);
+		}
+
 <STMTS>"offerror"	{
 		yylval.str=g_strdup(yytext);
 		g_strup(yylval.str);
