@@ -5,7 +5,6 @@
 # In the results subdirectory, you get :
 #  - result.-timestamp-.csv which contains return code for all step of each program
 #  - a subdirectory for each program with the output of each step
-#  - a summary is also printed at the end of the run
 #
 
 # Steps necessary to compile a dibol program
@@ -72,11 +71,3 @@ for dbl in `find . -name '*.dbl' | sort`; do
 
 	echo "$dbl;${rc_step[0]};${rc_step[1]};${rc_step[2]};${rc_step[3]}" >> $resultsdir/result.$date.csv
 done
-
-# Print a resume of the testsuite run
-echo "========================================="
-echo "Number of test program   : $nb_test"
-echo "Preprocessor sucess/fail : ${step_success[0]}/${step_failure[0]}"
-echo "Translator sucess/fail   : ${step_success[1]}/${step_failure[1]}"
-echo "Indentation sucess/fail  : ${step_success[2]}/${step_failure[2]}"
-echo "Compilation sucess/fail  : ${step_success[3]}/${step_failure[3]}"
