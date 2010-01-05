@@ -706,6 +706,7 @@ expr:
 
 parameter:
 	expr { $$ = $1; }
+	| { $$ = txt2list(""); }
 	;
 
 parameters:

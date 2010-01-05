@@ -1,0 +1,11 @@
+; d2c testsuite
+;
+; description: test xcall with one empty parameter
+; rc: 0;0;0;0
+RECORD
+	A	,A10
+	B	,A10
+
+PROC
+	XCALL TEST(A,,B)
+END
